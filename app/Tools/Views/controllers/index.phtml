@@ -1,0 +1,77 @@
+<?php
+/**
+ * Local variables
+ * @var \Phalcon\Mvc\View\Engine $this
+ * @var string $selectedModule
+ * @var string $directoryPath
+ */
+
+use Tools\Helpers\Tools;
+?>
+<div class="row">
+    <div class="col-md-3 col-sm-4">
+        <div class="list-group">
+            <?php echo Tools::getNavMenu($this->view->getControllerName()) ?>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <h1>Create Controller</h1>
+
+        <?php echo $this->getContent() ?>
+        <div class="col-lg-8 col-md-10">
+            <form method="post" autocomplete="off" action="<?php echo Tools::generateUrl('controllers', 'create') ?>">
+                <div class="control-group">
+                    <div class="form-group">
+                        <?php echo Tools::renderModulesInput($selectedModule) ?>
+                        <span class="hint-block">Leave empty if you don't use modules</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="name" >Controller name</label>
+                        <?php echo Phalcon\Tag::textField(array(
+                            'name',
+                            'class' => 'form-control',
+                            'required' => 'required'
+                        )) ?>
+                        <span class="hint-block">Controllers by default end up with <code>Controller</code>, unless you change or remove the suffix from dispatcher with setControllerSuffix()
+                            <br />Examples: <code>ExampleController, MultiWordController</code></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="name">Directory</label>
+                        <?php echo Phalcon\Tag::textField(array(
+                            'directory',
+                            'class' => 'form-control sticky-value',
+                        )) ?>
+                        <span class="hint-block">Leave empty for <code><?php echo Tools::getModulesPath(). '@ModuleName'. DIRECTORY_SEPARATOR . Tools::getControllersDir() ?></code></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="name" aria-describedby="helpNamespace">Namespace</label>
+                        <?php echo Phalcon\Tag::textField(array(
+                            'namespace',
+                            'class' => 'form-control sticky-value',
+                        )) ?>
+                        <span id="helpNamespace" class="hint-block">Leave empty for <code>@ModuleName\<?php echo Tools::getControllersDir() ?></code></span>
+                    </div>
+                    <div class="form-group">
+                        <?php echo Tools::renderControllersInput() ?>
+                        <span id="helpBaseClass" class="hint-block">Leave empty for <code>\Phalcon\Mvc\Controller</code></span>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <?php echo Phalcon\Tag::checkField(array("view", "value" => 1)) . ' Create View' ?>
+                        </label>
+                        <span class="hint-block">Create an empty view for your controller</code></span>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <?php echo Phalcon\Tag::checkField(array("force", "value" => 1)) . ' Force' ?>
+                        </label>
+                        <span class="hint-block">Overwrite files if they already exists</code></span>
+                    </div>
+                    <div align="right">
+                        <input type="submit" class="btn btn-primary" value="Generate"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

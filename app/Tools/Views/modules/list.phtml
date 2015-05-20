@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * Local variables
+ * @var \Phalcon\Mvc\View\Engine $this
+ * @var \Tools\Controllers\ModulesController $modulesDir
+ */
+
+use Tools\Helpers\Tools;
+?>
+<div class="row">
+    <div class="col-md-3 col-sm-4">
+        <div class="list-group">
+            <?php echo Tools::getNavMenu($this->view->getControllerName()) ?>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <ul class="nav nav-tabs">
+            <?php echo Tools::getMenu($this->view->getControllerName(), $this->view->getActionName()) ?>
+        </ul>
+
+        <h1>List Modules</h1>
+
+        <?php echo $this->getContent() ?>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td><b>Name</b></td>
+                <td><b>Add</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+
+            foreach(Tools::listModules() as $module){
+                echo '<tr>
+                        <td>', $module, '</td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a class="btn btn-default" href="'. Tools::generateUrl('controllers','index', $module) .'">Controller</a>
+                                <a class="btn btn-default" href="'. Tools::generateUrl('models','index', $module) .'">Model</a>
+                                <a class="btn btn-default" href="'. Tools::generateUrl('scaffold','index', $module) .'">Scaffold</a>
+                            </div>
+                        </td>
+                    </tr>';
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
+</div>

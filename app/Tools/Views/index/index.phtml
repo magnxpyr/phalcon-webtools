@@ -1,0 +1,13 @@
+<?php
+use Tools\Helpers\Tools;
+?>
+<div class="row">
+	<div class="col-md-3 col-sm-4">
+        <div class="list-group">
+			<?php echo Tools::getNavMenu($this->view->getControllerName()) ?>
+        </div>
+	</div>
+	<div class="col-md-9 col-sm-8">
+		<?php echo $this->getContent() ?>
+	</div>
+</div>

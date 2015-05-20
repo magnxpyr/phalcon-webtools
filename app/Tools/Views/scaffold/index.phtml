@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * Local variables
+ * @var \Phalcon\Mvc\View\Engine $this
+ * @var string $selectedModule
+ * @var string $databaseName
+ * @var array $tables
+ * @var array $templateEngines
+ */
+
+use Tools\Helpers\Tools;
+?>
+<div class="row">
+    <div class="col-md-3 col-sm-4">
+        <div class="list-group">
+            <?php echo Tools::getNavMenu($this->view->getControllerName()) ?>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <h1>Generate Scaffold</h1>
+
+        <?php echo $this->getContent() ?>
+
+        <div class="col-lg-8 col-md-10">
+            <form method="post" autocomplete="off" action="<?php echo Tools::generateUrl($this->view->getControllerName(), 'create') ?>">
+                <div class="control-group">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <?php echo Tools::renderModulesInput($selectedModule) ?>
+                            <span class="hint-block">Leave empty if you don't use modules</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="schema">Schema</label>
+                        <?php echo $this->tag->textField(array(
+                            'schema',
+                            'class' => 'form-control',
+                            'value' => $databaseName
+                        )) ?>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="tableName">Table name</label>
+                        <?php echo $this->tag->selectStatic(array(
+                            'tableName',
+                            'class' => 'form-control'
+                        ), $tables) ?>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="templateEngine">Template engine</label>
+                        <?php echo $this->tag->selectStatic(array(
+                            'templateEngine',
+                            'class' => 'form-control'
+                        ), $templateEngines) ?>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <?php echo $this->tag->checkField(array("genSettersGetters", "value" => 1)) . ' Add setters and getters' ?>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <?php echo $this->tag->checkField(array("force", "value" => 1)) . ' Force' ?>
+                        </label>
+                        <span class="hint-block">Overwrite files if they already exists</span>
+                    </div>
+                    <div align="right">
+                        <input type="submit" class="btn btn-primary" value="Generate"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * Local variables
+ * @var \Phalcon\Mvc\View\Engine $this
+ * @var string $version
+ * @todo list versions and run individually
+ */
+
+use Tools\Helpers\Tools;
+?>
+<div class="row">
+    <div class="col-md-3 col-sm-4">
+        <div class="list-group">
+            <?php echo Tools::getNavMenu($this->view->getControllerName()) ?>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <ul class="nav nav-tabs">
+            <?php echo Tools::getMenu($this->view->getControllerName(), $this->view->getActionName()) ?>
+        </ul>
+
+        <h1>Run Migration</h1>
+
+        <?php echo $this->getContent() ?>
+
+        <div class="col-lg-8 col-md-10">
+            <form method="post" autocomplete="off" action="<?php echo Tools::generateUrl($this->view->getControllerName(), 'run') ?>">
+                <table class="table table-striped table-bordered table-condensed">
+                    <tr>
+                        <td><b>Current Version</b></td>
+                        <td><i><?php echo $version ?></i></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div align="right">
+                                <input type="submit" class="btn btn-primary" value="Run"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

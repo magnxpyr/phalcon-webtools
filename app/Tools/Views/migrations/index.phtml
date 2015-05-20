@@ -1,0 +1,67 @@
+<?php
+/**
+ * Local variables
+ * @var \Phalcon\Mvc\View\Engine $this
+ * @var string $version
+ * @var array $tables
+ */
+
+use Tools\Helpers\Tools;
+?>
+<div class="row">
+    <div class="col-md-3 col-sm-4">
+        <div class="list-group">
+            <?php echo Tools::getNavMenu($this->view->getControllerName()) ?>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <ul class="nav nav-tabs">
+            <?php echo Tools::getMenu($this->view->getControllerName(), $this->view->getActionName()) ?>
+        </ul>
+
+        <h1>Generate  Migration</h1>
+
+        <?php echo $this->getContent() ?>
+
+        <div class="col-lg-8 col-md-10">
+            <form method="post" autocomplete="off" action="<?php echo Tools::generateUrl($this->view->getControllerName(), 'generate') ?>">
+                <div class="control-group">
+                    <div class="form-group">
+                        <b>Current Version</b> <i><?php echo $version ?></i>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="schema" >New Version</label>
+                        <?php echo Phalcon\Tag::textField(array(
+                            'version',
+                            'class' => 'form-control',
+                            'placeholder' => 'Let empty to auto new version'
+                        )) ?>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="schema" >Table name</label>
+                        <input list="table-name" name="table-name" class="form-control">
+                        <datalist id="table-name">
+                            <?php foreach($tables as $table) {
+                                echo "<option value='$table'>";
+                            } ?>
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <?php echo Phalcon\Tag::checkField(array('noAi', 'value' => '1')). ' Disable auto increment' ?>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <?php echo Phalcon\Tag::checkField(array('force', 'value' => '1')). ' Force' ?>
+                        </label>
+                        <span class="hint-block">Overwrite files if they already exists</code></span>
+                    </div>
+                    <div align="right">
+                        <input type="submit" class="btn btn-primary" value="Generate"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

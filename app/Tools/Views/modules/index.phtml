@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * Local variables
+ * @var \Phalcon\Mvc\View\Engine $this
+ */
+use Tools\Helpers\Tools;
+?>
+<div class="row">
+    <div class="col-md-3 col-sm-4">
+        <div class="list-group">
+            <?php echo Tools::getNavMenu($this->view->getControllerName()) ?>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <ul class="nav nav-tabs">
+            <?php echo Tools::getMenu($this->view->getControllerName(), $this->view->getActionName()) ?>
+        </ul>
+
+        <h1>Create Module</h1>
+
+        <?php echo $this->getContent() ?>
+        <div class="col-lg-8 col-md-10">
+            <form method="post" autocomplete="off" action="<?php echo Tools::generateUrl($this->view->getControllerName(), 'create') ?>">
+                <fieldset>
+                    <div class="control-group">
+                        <div class="form-group">
+                            <label class="control-label" for="name">Module name</label>
+                            <?php echo $this->tag->textField(array(
+                                'name',
+                                'class' => 'form-control',
+                                'required' => true
+                            )) ?>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="name">Directory</label>
+                            <?php echo $this->tag->textField(array(
+                                'directory',
+                                'class' => 'form-control'
+                            )) ?>
+                            <span class="hint-block">
+                                Leave empty for<br />
+                                <code><?php echo Tools::getModulesPath() ?>@ModuleName</code>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="name">Namespace</label>
+                            <?php echo $this->tag->textField(array(
+                                'namespace',
+                                'class' => 'form-control'
+                            )) ?>
+                            <span class="hint-block">Leave empty if your namespace is the same as your module</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="help" data-original-title="" title="">
+                                <?php echo $this->tag->checkField(array("routes", "value" => 1)) . ' Add Routes' ?>
+                            </label>
+                            <span class="hint-block">Create the Routes.php file</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="help" data-original-title="" title="">
+                                <?php echo $this->tag->checkField(array("force", "value" => 1)) . ' Force' ?>
+                            </label>
+                            <span class="hint-block">Overwrite files if they already exists</span>
+                        </div>
+                        <div align="right">
+                            <input type="submit" class="btn btn-primary" value="Generate"/>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
