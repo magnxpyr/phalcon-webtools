@@ -26,10 +26,10 @@ Set your environment setting in 'app/config/config.php'
         'controllersDir' => '', // default Controllers
         'formsDir' => '', // default Forms
         'allow' => '', // IP, default only 127.0.0.1
-        'baseController' => [], // default
-        'baseModel' => [], // default
-        'baseForm' => [], // default
-        'baseModule' => '', // default
+        'baseController' => [], // default Phalcon\Mvc\Controller
+        'baseModel' => [], // default Phalcon\Mvc\Model
+        'baseForm' => [], // default Phalcon\Mvc\Model
+        'baseModule' => '', // default empty
         'baseRoute' => '' // default empty
     )
 ```
