@@ -21,16 +21,16 @@ Set your environment setting in 'app/config/config.php'
         'copyright' => "", // copyright header for generated files; default empty
         'modulesPath' => '', // path to your modules/app directory; mandatory
         'migrationsPath' => '', // path to migrations directory; mandatory
-        //  'viewsDir' => '', // default Views
-        //  'modulesDir' => '', // default Modules
-        //  'controllersDir' => '', // default Controllers
-        //  'formsDir' => '', // default Forms
-        //  'allow' => '', // IP, default only 127.0.0.1
-        //  'baseController' => [], // default
-        //  'baseModel' => [], // default
-        //  'baseForm' => [], // default
-        //  'baseModule' => '', // default
-        //  'baseRoute' => '' // default empty
+        'viewsDir' => '', // default Views
+        'modulesDir' => '', // default Modules
+        'controllersDir' => '', // default Controllers
+        'formsDir' => '', // default Forms
+        'allow' => '', // IP, default only 127.0.0.1
+        'baseController' => [], // default
+        'baseModel' => [], // default
+        'baseForm' => [], // default
+        'baseModule' => '', // default
+        'baseRoute' => '' // default empty
     )
 ```
 Define only what you need and remove/comment the rest.
