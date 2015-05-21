@@ -14,7 +14,7 @@ To run this application, you need at least:
 
 
 Set your environment setting in 'app/config/config.php'
-
+```php
 database
 
 application > baseUri
@@ -34,7 +34,7 @@ application > baseUri
         //  'baseModule' => '', // default
         //  'baseRoute' => '' // default empty
     )
-    
+```
 Define only what you need and remove/comment the rest.
 If you're fine with the default configuration, define only 'modulesPath' and 'migrationsPath'
 
