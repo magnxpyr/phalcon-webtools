@@ -233,8 +233,12 @@ class Tools extends ControllerBase {
      */
     public static function generateUrl($controller, $action = 'index', $params = null) {
         $baseUri = self::getUrl()->get();
-        $uriPath = self::getRouter()->getMatchedRoute()->getPattern();
-        return str_replace(array('//', ':controller', ':action', ':params'),array('/', $controller, $action, $params), $baseUri . $uriPath);
+        if(self::getRouter()->getMatchedRoute() !== null) {
+            $uriPath = self::getRouter()->getMatchedRoute()->getPattern();
+            return str_replace(array('//', ':controller', ':action', ':params'), array('/', $controller, $action, $params), $baseUri . $uriPath);
+        } else {
+            return $baseUri . "$controller/$action/$params";
+        }
     }
 
     /**
@@ -329,7 +333,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getToolsIp() {
-        if(isset(self::_getToolsConfig()->allow)) {
+        if(!empty(self::_getToolsConfig()->allow)) {
             return self::_getToolsConfig()->allow;
         }
         return '';
@@ -340,7 +344,7 @@ class Tools extends ControllerBase {
      * @return array
      */
     public static function getBaseController() {
-        if(isset(self::_getToolsConfig()->baseController)) {
+        if(!empty(self::_getToolsConfig()->baseController)) {
             return self::_getToolsConfig()->baseController;
         }
         return array('Phalcon\Mvc\Controller');
@@ -351,7 +355,7 @@ class Tools extends ControllerBase {
      * @return array
      */
     public static function getBaseModel() {
-        if(isset(self::_getToolsConfig()->baseModel)) {
+        if(!empty(self::_getToolsConfig()->baseModel)) {
             return self::_getToolsConfig()->baseModel;
         }
         return array('Phalcon\Mvc\Model');
@@ -362,7 +366,7 @@ class Tools extends ControllerBase {
      * @return array
      */
     public static function getBaseForm() {
-        if(isset(self::_getToolsConfig()->baseForm)) {
+        if(!empty(self::_getToolsConfig()->baseForm)) {
             return self::_getToolsConfig()->baseForm;
         }
         return array('Phalcon\Mvc\Model');
@@ -373,7 +377,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getBaseModule() {
-        if(isset(self::_getToolsConfig()->baseModule)) {
+        if(!empty(self::_getToolsConfig()->baseModule)) {
             return self::_getToolsConfig()->baseModule;
         }
         return '';
@@ -384,7 +388,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getBaseRoute() {
-        if(isset(self::_getToolsConfig()->baseModule)) {
+        if(!empty(self::_getToolsConfig()->baseModule)) {
             return self::_getToolsConfig()->baseModule;
         }
         return '';
@@ -395,7 +399,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getBaseNamespace() {
-        if(isset(self::_getToolsConfig()->baseNamespace)) {
+        if(!empty(self::_getToolsConfig()->baseNamespace)) {
             return self::_getToolsConfig()->baseNamespace . '\\';
         }
         return '';
@@ -407,7 +411,7 @@ class Tools extends ControllerBase {
      * @throws \Exception
      */
     public static function getModulesPath() {
-        if(isset(self::_getToolsConfig()->modulesPath)) {
+        if(!empty(self::_getToolsConfig()->modulesPath)) {
             return self::_getToolsConfig()->modulesPath;
         }
         throw new \Exception('Modules path is not defined');
@@ -418,7 +422,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getMigrationsPath() {
-        if(isset(self::_getToolsConfig()->migrationsPath)) {
+        if(!empty(self::_getToolsConfig()->migrationsPath)) {
             return self::_getToolsConfig()->migrationsPath;
         }
         throw new \Exception("Migrations path is not defined");
@@ -429,7 +433,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getControllersDir() {
-        if(isset(self::_getToolsConfig()->controllersDir)) {
+        if(!empty(self::_getToolsConfig()->controllersDir)) {
             return self::_getToolsConfig()->controllersDir;
         }
         return 'Controllers';
@@ -440,7 +444,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getModelsDir() {
-        if(isset(self::_getToolsConfig()->modelsDir)) {
+        if(!empty(self::_getToolsConfig()->modelsDir)) {
             return self::_getToolsConfig()->modelsDir;
         }
         return 'Models';
@@ -451,7 +455,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getFormsDir() {
-        if(isset(self::_getToolsConfig()->formsDir)) {
+        if(!empty(self::_getToolsConfig()->formsDir)) {
             return self::_getToolsConfig()->formsDir;
         }
         return 'Forms';
@@ -462,7 +466,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getViewsDir() {
-        if(isset(self::_getToolsConfig()->viewsDir)) {
+        if(!empty(self::_getToolsConfig()->viewsDir)) {
             return self::_getToolsConfig()->viewsDir;
         }
         return 'Views';
@@ -473,7 +477,7 @@ class Tools extends ControllerBase {
      * @return string
      */
     public static function getCopyright() {
-        if(isset(self::_getToolsConfig()->copyright)) {
+        if(!empty(self::_getToolsConfig()->copyright)) {
             return self::_getToolsConfig()->copyright;
         }
         return '';
@@ -484,7 +488,7 @@ class Tools extends ControllerBase {
      * @return bool
      */
     public static function fullVersion() {
-        if(isset(self::_getToolsConfig()->full)) {
+        if(!empty(self::_getToolsConfig()->full)) {
             return self::_getToolsConfig()->full;
         }
         return true;

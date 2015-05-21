@@ -62,7 +62,9 @@ class ControllersController extends ControllerBase {
                 }
 
                 $this->flash->success('The controller "'.$controllerFileName.'" was created successfully');
-                $this->flash->success('The view for controller "'.$controllerFileName.'" was created successfully');
+                if(!empty($view)) {
+                    $this->flash->success('The view for controller "' . $controllerFileName . '" was created successfully');
+                }
             } catch (\Exception $e) {
                 $this->flash->error($e->getMessage());
             }

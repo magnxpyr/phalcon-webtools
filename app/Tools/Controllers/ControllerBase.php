@@ -19,15 +19,13 @@
 
 namespace Tools\Controllers;
 
-use Engine\AdminController;
 use Tools\Helpers\Tools;
-//use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\Controller;
 
-class ControllerBase extends AdminController {
+class ControllerBase extends Controller {
 
     protected function initialize() {
         $this->_checkAccess();
-        parent::initialize();
     }
 
     /**

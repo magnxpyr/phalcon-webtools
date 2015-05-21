@@ -32,7 +32,10 @@ class Controller extends Component {
             $options['directory'] .= DIRECTORY_SEPARATOR;
         }
         if (empty($options['namespace']) || $options['namespace'] != 'None') {
-            $options['namespace'] = Tools::getBaseModule() . $options['module'] . '\\' . Tools::getControllersDir();
+            if(empty($options['module']))
+                $options['namespace'] = Tools::getBaseModule() . Tools::getControllersDir();
+            else
+                $options['namespace'] = Tools::getBaseModule() . $options['module'] . '\\' . Tools::getControllersDir();
         }
         if (empty($options['baseClass'])) {
             $options['baseClass'] = 'Phalcon\Mvc\Controller';

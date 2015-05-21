@@ -1,0 +1,16 @@
+<nav class="topbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Phalcon Web Tools</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <?php echo $this->flash->output(); ?>
+    <?php echo $this->getContent(); ?>
+    <hr>
+    <footer>
+        <p>Powered by <a href="http://www.magnxpyr.com">Magnxpyr Network</a> &copy; <?php echo date('Y') ?></p>
+    </footer>
+</div>

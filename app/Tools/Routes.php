@@ -11,7 +11,7 @@ namespace Tools;
 class Routes {
 
     public function init($router) {
-        $router->add('/admin/tools/:controller/:action/:params', array(
+        $router->add('/:controller/:action/:params', array(
             'module' => 'tools',
             'controller' => 1,
             'action' => 2,

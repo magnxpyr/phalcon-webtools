@@ -108,7 +108,8 @@ class Module extends Component {
     private function _createRoute() {
 
         $code = "<?php\n".Tools::getCopyright()."\n\nnamespace ".$this->_options['namespace'].';'.PHP_EOL.PHP_EOL;
-        if(!empty(Tools::getBaseRoute())) {
+        $baseRoute = Tools::getBaseRoute();
+        if(!empty($baseRoute)) {
             $base = explode('\\', Tools::getBaseRoute());
             $baseClass = end($base);
 
@@ -117,7 +118,7 @@ class Module extends Component {
         }
 
         $code .= "class Routes";
-        if(!empty(Tools::getBaseRoute())) {
+        if(!empty($baseRoute)) {
             $code .= " extends $baseClass";
         }
         $code .= " {\n\n\tpublic function init(\$router) {
@@ -148,7 +149,8 @@ class Module extends Component {
                 use Phalcon\Mvc\Dispatcher;'.PHP_EOL.'use Phalcon\Mvc\ModuleDefinitionInterface;';
         }
 
-        if(!empty(Tools::getBaseModule())) {
+        $baseModule = Tools::getBaseModule();
+        if(!empty($baseModule)) {
             $base = explode('\\', Tools::getBaseModule());
             $baseClass = end($base);
 
@@ -157,7 +159,7 @@ class Module extends Component {
         }
 
         $code .= "class Module";
-        if(!empty(Tools::getBaseModule())) {
+        if(!empty($baseModule)) {
             $code .= " extends $baseClass";
         }
         if(Tools::fullVersion()) {
@@ -169,11 +171,11 @@ class Module extends Component {
                 \$loader = new Loader();
                 \$loader->registerNamespaces(
                     array(" . PHP_EOL .
-                        $this->_options['namespace'] . Tools::getControllersDir() . " => " .
-                        $this->_options['directory'] . Tools::getControllersDir() . PHP_EOL . "," .
-                        $this->_options['namespace'] . Tools::getControllersDir() . " => " .
-                        $this->_options['directory'] . Tools::getModelsDir() . PHP_EOL . "," .
-                        ")
+                $this->_options['namespace'] . Tools::getControllersDir() . " => " .
+                $this->_options['directory'] . Tools::getControllersDir() . PHP_EOL . "," .
+                $this->_options['namespace'] . Tools::getControllersDir() . " => " .
+                $this->_options['directory'] . Tools::getModelsDir() . PHP_EOL . "," .
+                ")
                 );
                 \$loader->register();
             }

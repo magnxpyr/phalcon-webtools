@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->tag->getTitle(); ?>
+    <?php echo $this->assets->outputCss('header-css'); ?>
+    <?php echo $this->tag->stylesheetLink('assets/default/css/style.css'); ?>
+    <?php echo $this->assets->outputJs('header-js'); ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CMS">
+    <meta name="author" content="Magnxpyr Network">
+</head>
+<body>
+<?php echo $this->getContent(); ?>
+</body>
+</html>

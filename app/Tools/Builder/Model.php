@@ -19,7 +19,7 @@
 /**
  * @copyright   2006 - 2015 Magnxpyr Network
  * @license     New BSD License; see LICENSE
- * @url         http://www.magnxpyr.com
+ * @link        http://www.magnxpyr.com
  * @authors     Stefan Chiriac <stefan@magnxpyr.com>
  */
 
@@ -41,7 +41,10 @@ class Model extends Component {
             $options['directory'] .= DIRECTORY_SEPARATOR;
         }
         if (empty($options['namespace']) || $options['namespace'] != 'None') {
-            $options['namespace'] = Tools::getBaseNamespace() . $options['module'] . '\\' . Tools::getModelsDir();
+            if(empty($options['module']))
+                $options['namespace'] = Tools::getBaseNamespace() . Tools::getModelsDir();
+            else
+                $options['namespace'] = Tools::getBaseNamespace() . $options['module'] . '\\' . Tools::getModelsDir();
         }
         if (empty($options['baseClass'])) {
             $options['baseClass'] = 'Phalcon\Mvc\Model';

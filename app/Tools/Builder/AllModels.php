@@ -40,7 +40,10 @@ class AllModels extends Component {
             $options['directory'] = Tools::getModulesPath() . $options['module'] .DIRECTORY_SEPARATOR. Tools::getModelsDir();
         }
         if (empty($options['namespace']) || $options['namespace'] != 'None') {
-            $options['namespace'] = Tools::getBaseModule() . $options['module'] . '\\' . Tools::getModelsDir();
+            if(empty($options['module']))
+                $options['namespace'] = Tools::getBaseModule() . Tools::getModelsDir();
+            else
+                $options['namespace'] = Tools::getBaseModule() . $options['module'] . '\\' . Tools::getModelsDir();
         }
         if (empty($options['baseClass'])) {
             $options['baseClass'] = 'Phalcon\Mvc\Model';
