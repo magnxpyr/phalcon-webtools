@@ -11,6 +11,7 @@ To run this application, you need at least:
 - Apache Web Server with mod rewrite enabled
 
 
+
 Set your environment setting in 'app/config/config.php'
 
 - set your database details on 'database'
@@ -34,6 +35,7 @@ Set your environment setting in 'app/config/config.php'
     )
 ```
 Define only what you need and remove/comment the rest.
+
 If you're fine with the default configuration, define only 'modulesPath' and 'migrationsPath'
 
 Third Party
