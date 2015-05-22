@@ -10,7 +10,6 @@ return new \Phalcon\Config(array(
         'charset'     => 'utf8',
     ),
     'application' => array(
-        'toolsDir' => __DIR__ . '/../Tools/',
         'controllersDir' => __DIR__ . '/../Tools/Controllers/',
         'viewsDir'       => __DIR__ . '/../Tools/Views/',
         'cacheDir'       => __DIR__ . '/../cache/',

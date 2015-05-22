@@ -13,13 +13,23 @@ use Phalcon\Session\Adapter\Files as SessionAdapter;
  */
 $di = new FactoryDefault();
 
-//Registering a dispatcher
+/**
+ * Register config
+ */
+$di->setShared('config', $config);
+
+/**
+ * Registering a dispatcher
+ */
 $di->set('dispatcher', function() {
     $dispatcher = new \Phalcon\Mvc\Dispatcher();
     $dispatcher->setDefaultNamespace('Tools\Controllers');
     return $dispatcher;
 });
 
+/**
+ * Register routers
+ */
 $di->setShared('router', function () use ($config) {
     $router = new \Phalcon\Mvc\Router();
     $router->removeExtraSlashes(true);
@@ -36,6 +46,40 @@ $di->setShared('router', function () use ($config) {
     ));
 
     return $router;
+});
+
+/**
+ *  Register assets that will be loaded in every page
+ */
+$di->setShared('assets', function() {
+    $assets = new \Phalcon\Assets\Manager();
+    $assets
+        ->collection('header-js')
+        ->addJs('js/jquery-1.11.3.min.js')
+        ->addJs('js/jquery-ui.min.js')
+        ->addJs('js/bootstrap.min.js')
+        ->addJs('js/mg.js');
+
+    $assets
+        ->collection('header-css')
+        ->addCss('css/jquery-ui.min.css')
+        ->addCss('css/bootstrap.min.css')
+        ->addCss('css/style.css');
+
+    return $assets;
+});
+
+
+/**
+ * Register the flash service with custom CSS classes
+ */
+$di->setShared('flash', function() {
+    return new \Phalcon\Flash\Session(array(
+        'success' => 'alert alert-success',
+        'notice'  => 'alert alert-info',
+        'warning' => 'alert alert-warning',
+        'error'   => 'alert alert-danger'
+    ));
 });
 
 /**
@@ -56,7 +100,6 @@ $di->set('view', function () use ($config) {
     $view = new View();
 
     $view->setViewsDir($config->application->viewsDir);
-//    $view->setMainView(THEMES_PATH . 'index');
     $view->setLayout('default');
 
     $view->registerEngines(array(
@@ -96,8 +139,6 @@ $di->set('modelsMetadata', function () {
     return new MetaDataAdapter();
 });
 
-$di->setShared('config', $config);
-
 /**
  * Start the session the first time some component request the session service
  */
@@ -107,30 +148,3 @@ $di->setShared('session', function () {
 
     return $session;
 });
-
-// Register assets that will be loaded in every page
-$assets = new \Phalcon\Assets\Manager();
-$assets
-    ->collection('header-js')
-    ->addJs('js/jquery-1.11.3.min.js')
-    ->addJs('js/jquery-ui.min.js')
-    ->addJs('js/bootstrap.min.js')
-    ->addJs('js/mg.js');
-
-$assets->collection('header-css')
-    ->addCss('css/jquery-ui.min.css')
-    ->addCss('css/bootstrap.min.css')
-    ->addCss('css/style.css');
-
-
-$di->setShared('assets', $assets);
-
-
-// Register the flash service with custom CSS classes
-$flash = new \Phalcon\Flash\Session(array(
-    'success' => 'alert alert-success',
-    'notice'  => 'alert alert-info',
-    'warning' => 'alert alert-warning',
-    'error'   => 'alert alert-danger'
-));
-$di->setShared('flash', $flash);

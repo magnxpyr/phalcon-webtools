@@ -8,7 +8,6 @@
 
 namespace Tools\Builder;
 
-use Phalcon\Exception;
 use Tools\Helpers\Tools;
 
 class Module extends Component {
@@ -145,8 +144,9 @@ class Module extends Component {
         $code = "<?php\n".Tools::getCopyright().PHP_EOL.PHP_EOL.'namespace ' .$this->_options['namespace'].';'.PHP_EOL.PHP_EOL;
 
         if(Tools::fullVersion()) {
-            $code .= 'use Phalcon\Loader;'.PHP_EOL.'use Phalcon\Mvc\View;
-                use Phalcon\Mvc\Dispatcher;'.PHP_EOL.'use Phalcon\Mvc\ModuleDefinitionInterface;';
+            $code .= 'use Phalcon\DiInterface;'.PHP_EOL.'use Phalcon\Loader;'
+                .PHP_EOL.'use Phalcon\Mvc\View;'.PHP_EOL.'use Phalcon\Mvc\Dispatcher;'
+                .PHP_EOL.'use Phalcon\Mvc\ModuleDefinitionInterface;';
         }
 
         $baseModule = Tools::getBaseModule();
@@ -154,51 +154,52 @@ class Module extends Component {
             $base = explode('\\', Tools::getBaseModule());
             $baseClass = end($base);
 
-            $useClass = 'use '.Tools::getBaseModule().';'.PHP_EOL.PHP_EOL;
+            $useClass = PHP_EOL . 'use '.Tools::getBaseModule().';';
             $code .= $useClass;
         }
 
-        $code .= "class Module";
+        $code .= PHP_EOL.PHP_EOL."class Module";
         if(!empty($baseModule)) {
             $code .= " extends $baseClass";
         }
         if(Tools::fullVersion()) {
             $code .= " implements ModuleDefinitionInterface {\n\n\t/**
-             * Register a specific autoloader for the module
-             */
-            public function registerAutoloaders(DiInterface \$di = null) {
+     * Register a specific autoloader for the module
+     * @param \\Phalcon\\DiInterface \$di
+     */
+    public function registerAutoloaders(DiInterface \$di = null) {
 
-                \$loader = new Loader();
-                \$loader->registerNamespaces(
-                    array(" . PHP_EOL .
-                $this->_options['namespace'] . Tools::getControllersDir() . " => " .
-                $this->_options['directory'] . Tools::getControllersDir() . PHP_EOL . "," .
-                $this->_options['namespace'] . Tools::getControllersDir() . " => " .
-                $this->_options['directory'] . Tools::getModelsDir() . PHP_EOL . "," .
-                ")
-                );
-                \$loader->register();
-            }
+        \$loader = new Loader();
+        \$loader->registerNamespaces(
+            array(" . PHP_EOL . "\t\t\t\t'" .
+        $this->_options['namespace'] .'\\'. Tools::getControllersDir() . "' => __DIR__ . '/" .
+        Tools::getControllersDir() . "'," . PHP_EOL . "\t\t\t\t'" .
+        $this->_options['namespace'] .'\\'. Tools::getModelsDir() . "' => __DIR__ . '/" .
+        Tools::getModelsDir() . "'" . PHP_EOL . "\t\t\t)
+        );
+        \$loader->register();
+    }
 
-            /**
-             * Register specific services for the module
-             */
-            public function registerServices(DiInterface \$di) {
+    /**
+     * Register specific services for the module
+     * @param \\Phalcon\\DiInterface \$di
+     */
+    public function registerServices(DiInterface \$di) {
 
-                //Registering a dispatcher
-                \$di->set('dispatcher', function() {
-                    \$dispatcher = new Dispatcher();
-                    \$dispatcher->setDefaultNamespace(" . $this->_options['namespace'] . ");
-                    return \$dispatcher;
-                });
+        //Registering a dispatcher
+        \$di->set('dispatcher', function() {
+            \$dispatcher = new Dispatcher();
+            \$dispatcher->setDefaultNamespace('" . $this->_options['namespace'] . "');
+            return \$dispatcher;
+        });
 
-                //Registering the view component
-                \$di->set('view', function() {
-                    \$view = new View();
-                    \$view->setViewsDir('" . $this->_options['directory'] . Tools::getViewsDir() . "');
-                    return \$view;
-                });
-            }\n}";
+        //Registering the view component
+        \$di->set('view', function() {
+            \$view = new View();
+            \$view->setViewsDir(__DIR__ . '/" . Tools::getViewsDir() . "');
+            return \$view;
+        });
+    }\n}";
         } else {
             $code .= " {" . PHP_EOL . PHP_EOL . "}";
         }

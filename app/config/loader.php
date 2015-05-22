@@ -3,10 +3,10 @@
 $loader = new \Phalcon\Loader();
 
 /**
- * We're a registering a set of directories taken from the configuration file
+ * We're a registering a set of namespaces
  */
 $loader->registerNamespaces(
     array(
-        'Tools' => $config->application->toolsDir
+        'Tools' => __DIR__ . '/../Tools/'
     )
 )->register();

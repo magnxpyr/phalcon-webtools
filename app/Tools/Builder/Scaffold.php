@@ -546,6 +546,11 @@ class Scaffold extends Component {
 
         $controllerPath = $options['controllersDir'] . $options['className'] . 'Controller.php';
 
+        if(!is_dir($options['controllersDir'])) {
+            if(!mkdir($options['controllersDir']))
+                return;
+            @chmod($options['controllersDir'], 0777);
+        }
         if (file_exists($controllerPath)) {
             if (!$options['force']) {
                 return;
@@ -678,12 +683,17 @@ class Scaffold extends Component {
      *
      * @throws \Exception
      */
-    private function makeView($path, $options, $type)
-    {
+    private function makeView($path, $options, $type) {
 
         $dirPath = $options['viewsDir'] . $options['fileName'];
-        if (is_dir($dirPath) == false) {
-            mkdir($dirPath);
+        if(!is_dir($options['viewsDir'])) {
+            if(!mkdir($dirPath, 0777, true))
+                return;
+            @chmod($dirPath, 0777);
+        }
+        if (!is_dir($dirPath)) {
+            if(!mkdir($dirPath, 0777, true))
+                return;
             @chmod($dirPath, 0777);
         }
 
@@ -720,8 +730,14 @@ class Scaffold extends Component {
     {
 
         $dirPath = $options['viewsDir'] . $options['fileName'];
-        if (is_dir($dirPath) == false) {
-            mkdir($dirPath);
+        if(!is_dir($options['viewsDir'])) {
+            if(!mkdir($dirPath, 0777, true))
+                return;
+            @chmod($dirPath, 0777);
+        }
+        if (!is_dir($dirPath)) {
+            if(!mkdir($dirPath, 0777, true))
+                return;
             @chmod($dirPath, 0777);
         }
 
@@ -815,8 +831,15 @@ class Scaffold extends Component {
     {
 
         $dirPath = $options['viewsDir'] . $options['fileName'];
-        if (is_dir($dirPath) == false) {
-            mkdir($dirPath);
+        if(!is_dir($options['viewsDir'])) {
+            if(!mkdir($dirPath, 0777, true))
+                return;
+            @chmod($dirPath, 0777);
+        }
+        if (!is_dir($dirPath)) {
+            if(!mkdir($dirPath, 0777, true))
+                return;
+            @chmod($dirPath, 0777);
         }
 
         $viewPath = $dirPath . DIRECTORY_SEPARATOR . 'search.phtml';
@@ -882,8 +905,15 @@ class Scaffold extends Component {
     {
 
         $dirPath = $options['viewsDir'] . $options['fileName'];
-        if (is_dir($dirPath) == false) {
-            mkdir($dirPath);
+        if(!is_dir($options['viewsDir'])) {
+            if(!mkdir($dirPath, 0777, true))
+                return;
+            @chmod($dirPath, 0777);
+        }
+        if (!is_dir($dirPath)) {
+            if(!mkdir($dirPath, 0777, true))
+                return;
+            @chmod($dirPath, 0777);
         }
 
         $viewPath = $dirPath . DIRECTORY_SEPARATOR . 'search.volt';
