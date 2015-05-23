@@ -148,3 +148,9 @@ $di->setShared('session', function () {
 
     return $session;
 });
+
+/**
+ * Set debugger
+ */
+$debug = new Phalcon\Debug();
+$debug->listen();

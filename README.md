@@ -44,3 +44,6 @@ Third Party
 * jQuery UI 1.11.4 https://jqueryui.com/ (MIT)
 * Bootstrap 3 http://getbootstrap.com/ (MIT)
 
+Screenshot
+----------
+[![Controller Page](https://github.com/magnxpyr/phalcon-webtools/screenshot.png)](/screenshot.png?raw=true "Controller Page")
