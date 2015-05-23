@@ -1,0 +1,17 @@
+{
+    "name": "magnxpyr/phalcon-webtools",
+    "description": "Web Tools for Phalcon Framework",
+    "require-dev": {
+        "phalcon/cphalcon": "dev-master",
+        "php": "5.4"
+    },
+    "license": "New BSD Licence",
+    "authors": [
+        {
+            "name": "Stefan Chiriac",
+            "email": "stefan@magnxpyr.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
