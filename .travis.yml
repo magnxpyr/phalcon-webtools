@@ -16,12 +16,7 @@ php:
   - 5.4
 
 script:
-  - php vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 app/
   - phpunit --configuration tests/phpunit.xml.dist --coverage-clover=coverage.clover
-
-after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 services:
   - memcached
