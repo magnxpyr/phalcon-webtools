@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit bootstrap="./bootstrap.php"
+        colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="false"
+         syntaxCheck="true"
+         testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
+    <testsuite name="Phalcon Web Tools Test Suite">
+        <directory>./</directory>
+    </testsuite>
+    
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../app</directory>
+        </whitelist>
+    </filter>
+</phpunit>
