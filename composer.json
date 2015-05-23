@@ -3,7 +3,7 @@
     "description": "Web Tools for Phalcon Framework",
     "require-dev": {
         "phalcon/cphalcon": "dev-master",
-        "php": "5.4"
+        "php": ">=5.4"
     },
     "license": "New BSD Licence",
     "authors": [
