@@ -1,6 +1,9 @@
 {
     "name": "magnxpyr/phalcon-webtools",
+    "type": "library",
     "description": "Web Tools for Phalcon Framework",
+    "keywords": ["phalcon", "webtools", "tools", "magnxpyr"],
+    "licence": "New BSD Licence",
     "require": {
         "ext-phalcon": "~2.0",
         "php": ">=5.4"

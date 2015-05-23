@@ -4,5 +4,14 @@ env:
   - PHALCON_VERSION="2.0.x"
   - PHALCON_VERSION="2.0.0"
 
+before_script:
+  - composer self-update
+  - composer update
+
 php:
   - 5.4
+
+matrix:
+  allow_failures:
+    - composer
+    - phpunit
