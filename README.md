@@ -4,6 +4,7 @@ This is an alternative to Phalcon Web Tools provided as a stand alone applicatio
 It can be used as a module as long you set up everything.
 
 ![travis badge](https://travis-ci.org/magnxpyr/phalcon-webtools.svg?branch=master)
+[![Software License](https://img.shields.io/badge/license-BSD--3-brightgreen.svg?style=flat-square)](LICENSE.txt?raw=true)
 
 Requirements
 ------------
