@@ -46,4 +46,4 @@ Third Party
 
 Screenshot
 ----------
-[![Controller Page](/magnxpyr/phalcon-webtools/screenshot.png)](/magnxpyr/phalcon-webtools/screenshot.png?raw=true "Controller Page")
+[![Controller Page](screenshot.png)](screenshot.png?raw=true "Controller Page")
