@@ -1,8 +1,8 @@
 {
     "name": "magnxpyr/phalcon-webtools",
     "description": "Web Tools for Phalcon Framework",
-    "require-dev": {
-        "phalcon/cphalcon": "dev-master",
+    "require": {
+        "ext-phalcon": "~2.0",
         "php": ">=5.4"
     },
     "license": "New BSD Licence",
@@ -13,5 +13,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "autoload": {
+        "psr-0": {
+            "Tools": "app/Tools/"
+        }
+    }
 }
