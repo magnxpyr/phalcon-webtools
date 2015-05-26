@@ -68,8 +68,8 @@ Just clone the repository:
 git clone git@github.com:magnxpyr/phalcon-webtools.git
 ```
 
-
-Set your environment setting in 'app/config/config.php'
+### Set up environment settings
+Set up your environment settings in 'app/config/config.php':
 
 - set your database details on 'database'
 - set your base url on 'application > baseUri'
