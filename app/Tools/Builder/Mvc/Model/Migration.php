@@ -210,9 +210,11 @@ class Migration {
                     throw new Exception('Unrecognized data type ' . $field->getType() . ' at column ' . $field->getName());
             }
 
-            //if ($field->isPrimary()) {
-            //	$fieldDefinition[] = "'primary' => true";
-            //}
+            /*
+            if ($field->isPrimary()) {
+            	$fieldDefinition[] = "'primary' => true";
+            }
+            */
 
             if ($field->isUnsigned()) {
                 $fieldDefinition[] = "'unsigned' => true";
@@ -243,7 +245,7 @@ class Migration {
             }
 
             $oldColumn = $field->getName();
-            $tableDefinition[] = "\t\t\t\t\tnew Column(\n\t\t\t\t\t\t'" . $field->getName() . "',\n\t\t\t\t\t\tarray(\n\t\t\t\t\t\t\t" . join(",\n\t\t\t\t\t\t\t", $fieldDefinition) . "\n\t\t\t\t\t\t)\n\t\t\t\t\t)";
+            $tableDefinition[] = "\t\t\t\t\tnew Column('" . $field->getName() . "', array(\n\t\t\t\t\t\t\t" . join(",\n\t\t\t\t\t\t\t", $fieldDefinition) . "\n\t\t\t\t\t\t)\n\t\t\t\t\t)";
             $allFields[] = "'".$field->getName()."'";
         }
 
@@ -363,23 +365,21 @@ use Tools\\Builder\\Mvc\\Model\\Migration;
 
 class ".$className." extends Migration {\n\n".
             "\tpublic function up() {\n".
-            "\t\t\$this->morphTable(\n\t\t\t'" . $options['table'] . "',\n\t\t\tarray(" .
+            "\t\t\$this->morphTable('" . $options['table'] . "', array(" .
             "\n\t\t\t\t'columns' => array(
-                    new Column(
-                        'id',
-                        array(
+                    new Column('id', array(
                             'type' => Column::TYPE_INTEGER,
+                            'size' => 11,
+                            'unsigned' => true,
                             'notNull' => true,
-                            'size' => 32,
+                            'autoIncrement' => true,
                             'first' => true
                         )
                     ),
-                    new Column(
-                        'name',
-                        array(
+                    new Column('name', array(
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 32,
+                            'size' => 255,
                             'after' => 'id'
                         )
                     ),\n\t\t\t\t),";
