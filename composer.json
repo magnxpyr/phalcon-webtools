@@ -22,10 +22,12 @@
     "support": {
         "issues": "https://github.com/magnxpyr/phalcon-webtools/issues"
     },
-    "repository": {
-        "type": "vcs",
-        "url": "https://github.com/magnxpyr/phalcon-webtools"
-    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/magnxpyr/phalcon-webtools"
+        }
+    ],
     "minimum-stability": "dev",
     "require": {
         "ext-phalcon": "~2.0",
