@@ -22,13 +22,22 @@
  * @link        http://www.magnxpyr.com
  * @author      Stefan Chiriac <stefan@magnxpyr.com>
  */
+
 namespace Tools\Controllers;
 
 use Tools\Builder\Scaffold;
 
-class ScaffoldController extends ControllerBase {
-
-    public function indexAction() {
+/**
+ * Class ScaffoldController
+ * @package Tools\Controllers
+ */
+class ScaffoldController extends ControllerBase
+{
+    /**
+     * Scaffold form
+     */
+    public function indexAction()
+    {
         $this->listTables();
         $this->view->templateEngines = array(
             'volt' => 'volt',
@@ -43,10 +52,10 @@ class ScaffoldController extends ControllerBase {
     }
 
     /**
-     * Generate Scaffold
+     * Generate Scaffold Action
      */
-    public function createAction() {
-
+    public function createAction()
+    {
         if ($this->request->isPost()) {
             $module = $this->request->getPost('module', 'string');
             $schema = $this->request->getPost('schema', 'string');

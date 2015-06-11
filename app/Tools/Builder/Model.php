@@ -29,9 +29,19 @@ use Phalcon\Db\Column;
 use Phalcon\Text;
 use Tools\Helpers\Tools;
 
-class Model extends Component {
-
-    public function __construct($options) {
+/**
+ * Class Model
+ * @package Tools\Builder
+ */
+class Model extends Component
+{
+    /**
+     * Model Construct
+     * @param $options
+     * @throws \Exception
+     */
+    public function __construct($options)
+    {
         if (empty($options['name'])) {
             $options['name'] = Text::camelize($options['tableName']);
         }
@@ -90,7 +100,8 @@ class Model extends Component {
     public function build()
     {
         $getSource = "
-    public function getSource() {
+    public function getSource()
+    {
         return '%s';
     }
 ";
@@ -103,7 +114,8 @@ class Model extends Component {
      * @param %s \$%s
      * @return \$this
      */
-    public function set%s(\$%s) {
+    public function set%s(\$%s)
+    {
         \$this->%s = \$%s;
 
         return \$this;
@@ -149,7 +161,8 @@ class Model extends Component {
      *
      * @return %s
      */
-    public function get%s() {
+    public function get%s()
+    {
         if (\$this->%s) {
             return new %s(\$this->%s);
         } else {
@@ -164,7 +177,8 @@ class Model extends Component {
      *
      * @return %s
      */
-    public function get%s() {
+    public function get%s()
+    {
         return \$this->%s;
     }
 ";
@@ -173,7 +187,8 @@ class Model extends Component {
     /**
      * Validations and business logic
      */
-    public function validation() {
+    public function validation()
+    {
 %s
     }
 ";
@@ -182,7 +197,8 @@ class Model extends Component {
     /**
      * Initialize method for model.
      */
-    public function initialize() {
+    public function initialize()
+    {
 %s
     }
 ";
@@ -191,14 +207,16 @@ class Model extends Component {
     /**
      * @return %s[]
      */
-    public static function find(\$parameters = array()) {
+    public static function find(\$parameters = array())
+    {
         return parent::find(\$parameters);
     }
 
     /**
      * @return %s
      */
-    public static function findFirst(\$parameters = array()) {
+    public static function findFirst(\$parameters = array())
+    {
         return parent::findFirst(\$parameters);
     }
 ";
@@ -207,7 +225,9 @@ class Model extends Component {
         $templateUseAs = 'use %s as %s;';
 
         $templateCode = "<?php
-%s%s%sclass %s extends %s {
+%s%s%s%s
+class %s extends %s
+{
 %s
 }
 ";
@@ -297,20 +317,19 @@ class Model extends Component {
         } else {
             throw new \Exception('Table "' . $table . '" does not exist');
         }
-        
+
         foreach ($db->listTables() as $tableName) {
             foreach ($db->describeReferences($tableName) as $reference) {
                 if ($reference->getReferencedTable() == $this->_options['tableName']) {
                     if (isset($this->_options['namespace'])) {
                         $entityNamespace = "{$this->_options['namespace']}\\";
-                    }
-                    else {
+                    } else {
                         $entityNamespace = '';
                     }
                     $initialize[] = sprintf(
-                        $templateRelation, 
-                        'hasMany', 
-                        $reference->getReferencedColumns()[0], 
+                        $templateRelation,
+                        'hasMany',
+                        $reference->getReferencedColumns()[0],
                         $entityNamespace . ucfirst($tableName),
                         $reference->getColumns()[0],
                         "array('alias' => '" . ucfirst($tableName) . "')"
@@ -321,8 +340,7 @@ class Model extends Component {
         foreach ($db->describeReferences($this->_options['tableName']) as $reference) {
             if (isset($this->_options['namespace'])) {
                 $entityNamespace = "{$this->_options['namespace']}\\";
-            }
-            else {
+            } else {
                 $entityNamespace = '';
             }
             $initialize[] = sprintf(
@@ -399,10 +417,7 @@ class Model extends Component {
                 require_once $modelPath;
 
                 $linesCode = file($modelPath);
-                $fullClassName = $this->_options['className'];
-                if (isset($this->_options['namespace'])) {
-                    $fullClassName = $this->_options['namespace'].'\\'.$fullClassName;
-                }
+                $fullClassName = $this->_options['namespace'];
                 $reflection = new \ReflectionClass($fullClassName);
                 foreach ($reflection->getMethods() as $method) {
                     if ($method->getDeclaringClass()->getName() == $fullClassName) {
@@ -570,6 +585,10 @@ class Model extends Component {
         }
 
         $str_use = implode(PHP_EOL, $uses) . PHP_EOL . PHP_EOL;
+        $str_doc = '/**
+ * Class ' . $this->_options['name'] . '
+ * @package ' . $this->_options['namespace'] . '
+ */';
 
         $base = explode('\\', $this->_options['baseClass']);
         $baseClass = end($base);
@@ -579,6 +598,7 @@ class Model extends Component {
             Tools::getCopyright(),
             $namespace,
             $str_use,
+            $str_doc,
             $this->_options['name'],
             $baseClass,
             $content
@@ -628,7 +648,8 @@ class Model extends Component {
     /**
      * Independent Column Mapping.
      */
-    public function columnMap() {
+    public function columnMap()
+    {
         return array(
             %s
         );

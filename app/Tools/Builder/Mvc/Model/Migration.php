@@ -1,5 +1,4 @@
 <?php
-
 /*
   +------------------------------------------------------------------------+
   | Phalcon Developer Tools                                                |
@@ -37,7 +36,8 @@ use Phalcon\Events\Manager as EventsManager;
  * @copyright   Copyright (c) 2011-2015 Phalcon Team (team@phalconphp.com)
  * @license     New BSD License
  */
-class Migration {
+class Migration
+{
     /**
      * Migration database connection
      * @var \Phalcon\Db
@@ -145,7 +145,8 @@ class Migration {
      * @return string
      * @throws Exception
      */
-    public static function generate($version, $table, $exportData=null) {
+    public static function generate($version, $table, $exportData=null)
+    {
         $oldColumn = null;
         $allFields = array();
         $numericFields = array();
@@ -298,8 +299,8 @@ use Phalcon\\Db\\Index;
 use Phalcon\\Db\\Reference;
 use Tools\\Builder\\Mvc\\Model\\Migration;
 
-class ".$className." extends Migration {\n\n".
-        "\tpublic function up() {\n".
+class ".$className." extends Migration\n{\n".
+        "\tpublic function up()\n\t{\n".
         "\t\t\$this->morphTable(\n\t\t\t'" . $table . "',\n\t\t\tarray(" .
         "\n\t\t\t\t'columns' => array(\n" . join(",\n", $tableDefinition) . "\n\t\t\t\t),";
         if (count($indexesDefinition)) {
@@ -318,9 +319,9 @@ class ".$className." extends Migration {\n\n".
         if ($exportData == 'always' || $exportData == 'oncreate') {
 
             if ($exportData == 'oncreate') {
-                $classData .= "\n\n\tpublic function afterCreateTable() {\n";
+                $classData .= "\n\tpublic function afterCreateTable()\n\t{\n";
             } else {
-                $classData .= "\n\n\tpublic function afterUp() {\n";
+                $classData .= "\n\tpublic function afterUp()\n\t{\n";
             }
             $classData .= "\t\t\$this->batchInsert('$table', array(\n\t\t\t" . join(",\n\t\t\t", $allFields) . "\n\t\t));";
 
@@ -355,7 +356,8 @@ class ".$className." extends Migration {\n\n".
         return $classData;
     }
 
-    private static function generateEmpty($options) {
+    private static function generateEmpty($options)
+    {
         $classVersion = preg_replace('/[^0-9A-Za-z]/', '', $options['version']);
         $className = Text::camelize($options['table']) . 'Migration_'.$classVersion;
         $classData = "use Phalcon\\Db\\Column;
@@ -363,9 +365,9 @@ use Phalcon\\Db\\Index;
 use Phalcon\\Db\\Reference;
 use Tools\\Builder\\Mvc\\Model\\Migration;
 
-class ".$className." extends Migration {\n\n".
-            "\tpublic function up() {\n".
-            "\t\t\$this->morphTable('" . $options['table'] . "', array(" .
+class ".$className." extends Migration\n{\n".
+            "\tpublic function up()\n\t{\n".
+            "\t\t\$this->morphTable(\n\t\t\t'" . $options['table'] . "',\n\t\t\tarray(" .
             "\n\t\t\t\t'columns' => array(
                     new Column('id', array(
                             'type' => Column::TYPE_INTEGER,

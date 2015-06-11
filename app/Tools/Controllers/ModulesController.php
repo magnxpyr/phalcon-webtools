@@ -11,18 +11,33 @@ namespace Tools\Controllers;
 use Tools\Helpers\Tools;
 use Tools\Builder\Module;
 
-class ModulesController extends ControllerBase {
-
-    public function indexAction() {
+/**
+ * Class ModulesController
+ * @package Tools\Controllers
+ */
+class ModulesController extends ControllerBase
+{
+    /**
+     * Create module form
+     */
+    public function indexAction()
+    {
 
     }
 
-    public function listAction() {
+    /**
+     * List Modules Action
+     */
+    public function listAction()
+    {
 
     }
 
-    public function createAction() {
-
+    /**
+     * Create Module Action
+     */
+    public function createAction()
+    {
         if ($this->request->isPost()) {
             $name = $this->request->getPost('name');
             $directory = $this->request->getPost('directory');

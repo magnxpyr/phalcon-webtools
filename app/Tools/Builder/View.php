@@ -11,9 +11,19 @@ namespace Tools\Builder;
 use Phalcon\Text;
 use Tools\Helpers\Tools;
 
-class View extends Component {
-
-    public function __construct($options) {
+/**
+ * Class View
+ * @package Tools\Builder
+ */
+class View extends Component
+{
+    /**
+     * View Construct
+     * @param $options
+     * @throws \Exception
+     */
+    public function __construct($options)
+    {
         if (empty($options['name'])) {
             throw new \Exception("Please specify the view name");
         }
@@ -34,12 +44,14 @@ class View extends Component {
     /**
      * Generate view
      */
-    public function build() {
-
+    public function build()
+    {
         $action = Text::uncamelize($this->_options['action']);
 
         $viewName = explode('-', str_replace('_', '-', Text::uncamelize($this->_options['name'])));
-        array_pop($viewName);
+        if (count($viewName) > 1) {
+            array_pop($viewName);
+        }
         $viewName = implode('-', $viewName);
         $viewDir = $this->_options['directory'] . DIRECTORY_SEPARATOR . $viewName;
         $viewPath = $viewDir . DIRECTORY_SEPARATOR . $action . '.volt';

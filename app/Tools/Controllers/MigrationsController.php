@@ -21,13 +21,18 @@ namespace Tools\Controllers;
 use Tools\Builder\Migrations;
 use Tools\Helpers\Tools;
 
-class MigrationsController extends ControllerBase {
-
+/**
+ * Class MigrationsController
+ * @package Tools\Controllers
+ */
+class MigrationsController extends ControllerBase
+{
     /**
      * @throws \Exception
      * @return string
      */
-    protected function _getMigrationsDir() {
+    protected function _getMigrationsDir()
+    {
         $migrationsDir = Tools::getMigrationsPath();
         if (!file_exists($migrationsDir)) {
             if(!@mkdir($migrationsDir)) {
@@ -39,8 +44,11 @@ class MigrationsController extends ControllerBase {
         return $migrationsDir;
     }
 
-    protected function _prepareVersions() {
-
+    /**
+     * @throws \Exception
+     */
+    protected function _prepareVersions()
+    {
         $migrationsDir = $this->_getMigrationsDir();
 
         $folders = array();
@@ -63,7 +71,8 @@ class MigrationsController extends ControllerBase {
         }
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->_prepareVersions();
         $this->listTables(true);
     }
@@ -71,8 +80,8 @@ class MigrationsController extends ControllerBase {
     /**
      * Generates migrations
      */
-    public function generateAction() {
-
+    public function generateAction()
+    {
         if ($this->request->isPost()) {
             $exportData = '';
             $tableName = $this->request->getPost('table-name', 'string');
@@ -105,9 +114,11 @@ class MigrationsController extends ControllerBase {
         ));
     }
 
-
-    public function runAction() {
-
+    /**
+     * Run Migrations
+     */
+    public function runAction()
+    {
         if ($this->request->isPost()) {
             $version = '';
             $exportData = '';

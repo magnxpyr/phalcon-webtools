@@ -31,9 +31,19 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Db\Column;
 use Tools\Helpers\Tools;
 
-class Scaffold extends Component {
-
-    public function __construct($options) {
+/**
+ * Class Scaffold
+ * @package Tools\Builder
+ */
+class Scaffold extends Component
+{
+    /**
+     * Scaffold Construct
+     * @param $options
+     * @throws \Exception
+     */
+    public function __construct($options)
+    {
         if (empty($options['tableName'])) {
             throw new \Exception("Please, specify the table name");
         }
@@ -80,7 +90,8 @@ class Scaffold extends Component {
      * @return bool
      * @throws \Exception
      */
-    public function build() {
+    public function build()
+    {
         $options = $this->_options;
 
         if(Tools::getDb()) {
@@ -192,7 +203,7 @@ class Scaffold extends Component {
 
         if (isset($options['templateEngine']) && $options['templateEngine'] == 'volt') {
             //View layouts
-        //    $this->_makeLayoutsVolt($options);
+            //    $this->_makeLayoutsVolt($options);
 
             //View index.phtml
             $this->_makeViewIndexVolt(null, $options);
@@ -207,7 +218,7 @@ class Scaffold extends Component {
             $this->_makeViewEditVolt(null, $options);
         } else {
             //View layouts
-       //     $this->_makeLayouts(null, $options);
+            //     $this->_makeLayouts(null, $options);
 
             //View index.phtml
             $this->_makeViewIndex(null, $options);
@@ -342,7 +353,7 @@ class Scaffold extends Component {
                 if ($field == 'email') {
                     $fieldCode = '$this->request->getPost("'.$field.'", "email")';
                 } else {
-                    $fieldCode = '$this->request->getPost("'.$field.'")';
+                    $fieldCode = '$this->request->getPost("'.$field.'", "string")';
                 }
             }
 
@@ -393,11 +404,9 @@ class Scaffold extends Component {
      */
     private function _makeField($attribute, $dataType, $relationField, $selectDefinition)
     {
-        $code = "\t" . '<tr>' . PHP_EOL .
-                "\t\t" . '<td align="right">' . PHP_EOL .
-                "\t\t\t" . '<label for="' . $attribute . '">' . $this->_getPossibleLabel($attribute) . '</label>' . PHP_EOL .
-                "\t\t" . '</td>' . PHP_EOL .
-                "\t\t" . '<td align="left">';
+        $code = "\n\t\t\t" . '<div class="form-group">' . PHP_EOL .
+            "\t\t\t\t" . '<label for="' . $attribute . '" class="control-label col-sm-4">' . $this->_getPossibleLabel($attribute) . '</label>' . PHP_EOL .
+            "\t\t\t\t" . '<div class="input-group">';
 
         if (isset($relationField[$attribute])) {
             $code .= PHP_EOL . "\t\t\t\t" . '<?php echo $this->tag->select(array("' . $attribute . '", $' . $selectDefinition[$attribute]['varName'] .
@@ -406,26 +415,26 @@ class Scaffold extends Component {
 
             switch ($dataType) {
                 case Column::TYPE_CHAR:
-                    $code .= PHP_EOL . "\t\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '")) ?>';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '")) ?>';
                     break;
                 case Column::TYPE_DECIMAL:
                 case Column::TYPE_INTEGER:
-                    $code .= PHP_EOL . "\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '", "type" => "number")) ?>';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '", "size" => 30, "type" => "number", "class" => "form-control")) ?>';
                     break;
                 case Column::TYPE_DATE:
-                    $code .= PHP_EOL . "\t\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '", "type" => "date")) ?>';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '", "size" => 30, "type" => "date", "class" => "form-control")) ?>';
                     break;
                 case Column::TYPE_TEXT:
-                    $code .= PHP_EOL . "\t\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '", "type" => "date")) ?>';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '", "size" => 30, "type" => "date", "class" => "form-control")) ?>';
                     break;
                 default:
-                    $code .= PHP_EOL . "\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '", "size" => 30)) ?>';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '<?php echo $this->tag->textField(array("' . $attribute . '", "size" => 30, "class" => "form-control")) ?>';
                     break;
             }
         }
 
-        $code .= PHP_EOL . "\t\t" . '</td>';
-        $code .= PHP_EOL . "\t" . '</tr>' . PHP_EOL;
+        $code .= PHP_EOL . "\t\t\t\t" . '</div>';
+        $code .= PHP_EOL . "\t\t\t" . '</div>' . PHP_EOL;
 
         return $code;
     }
@@ -440,39 +449,37 @@ class Scaffold extends Component {
      */
     private function _makeFieldVolt($attribute, $dataType, $relationField, $selectDefinition)
     {
-        $code = "\t" . '<tr>' . PHP_EOL .
-                "\t\t" . '<td align="right">' . PHP_EOL .
-                "\t\t\t" . '<label for="' . $attribute . '">' . $this->_getPossibleLabel($attribute) . '</label>' . PHP_EOL .
-                "\t\t" . '</td>' . PHP_EOL .
-                "\t\t" . '<td align="left">';
+        $code = "\n\t\t\t" . '<div class="form-group">' . PHP_EOL .
+            "\t\t\t\t" . '<label for="' . $attribute . '" class="control-label col-sm-4">' . $this->_getPossibleLabel($attribute) . '</label>' . PHP_EOL .
+            "\t\t\t\t" . '<div class="input-group">';
 
         if (isset($relationField[$attribute])) {
-            $code .= PHP_EOL . "\t\t\t\t" . '{{ select("' . $attribute . '", ' . $selectDefinition[$attribute]['varName'] .
+            $code .= PHP_EOL . "\t\t\t\t\t" . '{{ select("' . $attribute . '", ' . $selectDefinition[$attribute]['varName'] .
                 ', "using" :[ "' . $selectDefinition[$attribute]['primaryKey'] . ',' . $selectDefinition[$attribute]['detail'] . '", "useDummy" => true]) }}';
         } else {
 
             switch ($dataType) {
                 case Column::TYPE_CHAR:
-                    $code .= PHP_EOL . "\t\t\t\t" . '{{ text_field("' . $attribute . '") }}';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '{{ text_field("' . $attribute . '", "class": "form-control") }}';
                     break;
                 case Column::TYPE_DECIMAL:
                 case Column::TYPE_INTEGER:
-                    $code .= PHP_EOL . "\t\t\t" . '{{ text_field("' . $attribute . '", "type" : "numeric") }}';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '{{ text_field("' . $attribute . '", "size" : 30, "type": "numeric", "class": "form-control") }}';
                     break;
                 case Column::TYPE_DATE:
-                    $code .= PHP_EOL . "\t\t\t\t" . '{{ text_field("' . $attribute . '", "type" : "date") }}';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '{{ text_field("' . $attribute . '", "size" : 30, "type": "date", "class": "form-control") }}';
                     break;
                 case Column::TYPE_TEXT:
-                    $code .= PHP_EOL . "\t\t\t\t" . '{{ text_field("' . $attribute . '", "type" : "date") }}';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '{{ text_field("' . $attribute . '", "size" : 30, "type": "date", "class": "form-control") }}';
                     break;
                 default:
-                    $code .= PHP_EOL . "\t\t\t" . '{{ text_field("' . $attribute . '", "size" : 30) }}';
+                    $code .= PHP_EOL . "\t\t\t\t\t" . '{{ text_field("' . $attribute . '", "size" : 30, "class": "form-control") }}';
                     break;
             }
         }
 
-        $code .= PHP_EOL . "\t\t" . '</td>';
-        $code .= PHP_EOL . "\t" . '</tr>' . PHP_EOL;
+        $code .= PHP_EOL . "\t\t\t\t" . '</div>';
+        $code .= PHP_EOL . "\t\t\t" . '</div>' . PHP_EOL;
 
         return $code;
     }
@@ -487,7 +494,6 @@ class Scaffold extends Component {
      */
     private function _makeFields($path, $options, $action)
     {
-
         $entity	= $options['entity'];
         $relationField = $options['relationField'];
         $autocompleteFields	= $options['autocompleteFields'];
@@ -516,7 +522,6 @@ class Scaffold extends Component {
      */
     private function _makeFieldsVolt($path, $options, $action)
     {
-
         $entity	= $options['entity'];
         $relationField = $options['relationField'];
         $autocompleteFields	= $options['autocompleteFields'];
@@ -539,11 +544,10 @@ class Scaffold extends Component {
     /**
      * Generate controller using scaffold
      *
-     * @param string $path
      * @param array  $options
      */
-    private function _makeController($options) {
-
+    private function _makeController($options)
+    {
         $controllerPath = $options['controllersDir'] . $options['className'] . 'Controller.php';
 
         if(!is_dir($options['controllersDir'])) {
@@ -583,12 +587,20 @@ class Scaffold extends Component {
 
         $code = str_replace('$className$', $options['className'], $code);
 
+        $code = str_replace('$package$', $options['controllersNamespace'], $code);
+
+        $code = str_replace('$controllerClass$', Tools::getBaseController()[0], $code);
+
+        $explodeController = explode('\\', Tools::getBaseController()[0]);
+        $code = str_replace('$controllerName$', array_pop($explodeController), $code);
+
         $code = str_replace('$assignInputFromRequestCreate$', $this->_captureFilterInput($options['singular'], $options['dataTypes'], $options['genSettersGetters'], $options['identityField']), $code);
         $code = str_replace('$assignInputFromRequestUpdate$', $this->_captureFilterInput($options['singular'], $options['dataTypes'], $options['genSettersGetters'], $options['identityField']), $code);
 
         $code = str_replace('$assignTagDefaults$', $this->_assignTagDefaults($options['singular'], $options['dataTypes'], $options['genSettersGetters']), $code);
 
         $code = str_replace('$pkVar$', '$' . $options['attributes'][0], $code);
+        $code = str_replace('$pkFind$', Text::camelize($options['attributes'][0]), $code);
         $code = str_replace('$pk$', $options['attributes'][0], $code);
 
         $code = str_replace("\t", "    ", $code);
@@ -604,7 +616,6 @@ class Scaffold extends Component {
      */
     private function _makeLayouts($path, $options)
     {
-
         //Make Layouts dir
         $dirPathLayouts	= $options['viewsDir'] . '/layouts';
 
@@ -638,12 +649,10 @@ class Scaffold extends Component {
     }
 
     /**
-     * @param $path
      * @param $options
      */
     private function _makeLayoutsVolt($options)
     {
-
         //Make Layouts dir
         $dirPathLayouts	= $options['viewsDir'] . DIRECTORY_SEPARATOR . 'layouts';
 
@@ -728,7 +737,6 @@ class Scaffold extends Component {
      */
     private function makeViewVolt($path, $options, $type)
     {
-
         $dirPath = $options['viewsDir'] . $options['fileName'];
         if(!is_dir($options['viewsDir'])) {
             if(!mkdir($dirPath, 0777, true))
@@ -829,7 +837,6 @@ class Scaffold extends Component {
      */
     private function _makeViewSearch($path, $options)
     {
-
         $dirPath = $options['viewsDir'] . $options['fileName'];
         if(!is_dir($options['viewsDir'])) {
             if(!mkdir($dirPath, 0777, true))
@@ -856,13 +863,13 @@ class Scaffold extends Component {
 
         $headerCode = '';
         foreach ($options['attributes'] as $attribute) {
-            $headerCode .= "\t\t\t" . '<th>' . $this->_getPossibleLabel($attribute) . '</th>' . PHP_EOL;
+            $headerCode .= "\t\t\t\t" . '<th>' . $this->_getPossibleLabel($attribute) . '</th>' . PHP_EOL;
         }
 
         $rowCode = '';
         $options['allReferences'] = array_merge($options['autocompleteFields'], $options['selectDefinition']);
         foreach ($options['dataTypes'] as $fieldName => $dataType) {
-            $rowCode .= "\t\t\t" . '<td><?php echo ';
+            $rowCode .= "\t\t\t\t" . '<td><?php echo ';
             if (!isset($options['allReferences'][$fieldName])) {
                 if ($options['genSettersGetters']) {
                     $rowCode .= '$' . $options['singular'] . '->get' . Text::camelize($fieldName) . '()';
@@ -903,7 +910,6 @@ class Scaffold extends Component {
      */
     private function _makeViewSearchVolt($path, $options)
     {
-
         $dirPath = $options['viewsDir'] . $options['fileName'];
         if(!is_dir($options['viewsDir'])) {
             if(!mkdir($dirPath, 0777, true))
@@ -930,13 +936,13 @@ class Scaffold extends Component {
 
         $headerCode = '';
         foreach ($options['attributes'] as $attribute) {
-            $headerCode .= "\t\t\t" . '<th>' . $this->_getPossibleLabel($attribute) . '</th>' . PHP_EOL;
+            $headerCode .= "\t\t\t\t" . '<th>' . $this->_getPossibleLabel($attribute) . '</th>' . PHP_EOL;
         }
 
         $rowCode = '';
         $options['allReferences'] = array_merge($options['autocompleteFields'], $options['selectDefinition']);
         foreach ($options['dataTypes'] as $fieldName => $dataType) {
-            $rowCode .= "\t\t\t" . '<td>{{ ';
+            $rowCode .= "\t\t\t\t\t\t" . '<td>{{ ';
             if (!isset($options['allReferences'][$fieldName])) {
                 if ($options['genSettersGetters']) {
                     $rowCode .= $options['singular'] . '.get' . Text::camelize($fieldName) . '()';
@@ -953,7 +959,7 @@ class Scaffold extends Component {
         if ($options['genSettersGetters']) {
             $idField = 'get' . Text::camelize($options['attributes'][0]) . '()';
         } else {
-            $idField =  $options['attributes'][0];
+            $idField = $options['attributes'][0];
         }
 
         $code = file_get_contents($templatePath);

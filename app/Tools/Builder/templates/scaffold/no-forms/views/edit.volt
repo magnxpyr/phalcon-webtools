@@ -1,23 +1,15 @@
 {{ content() }}
-{{ form("$plural$/save", "method":"post") }}
+<h1>Edit $plural$</h1>
 
-<table width="100%">
-    <tr>
-        <td align="left">{{ link_to("$plural$", "Go Back") }}</td>
-        <td align="right">{{ submit_button("Save") }}</td>
-    </tr>
-</table>
-
-<div align="center">
-    <h1>Edit $plural$</h1>
+<div class="col-md-6 col-sm-6">
+    {{ form("$plural$/save", "method":"post", "class": "form-horizontal") }}
+        {{ link_to("$plural$", "Go Back") }}
+        <fieldset>
+            {{ hidden_field("id") }}
+            $captureFields$
+            <div class="form-group">
+                {{ submit_button("Save", "class": "btn btn-success col-sm-offset-4") }}
+            </div>
+        </fieldset>
+    </form>
 </div>
-
-<table>
-$captureFields$
-	<tr>
-		<td>{{ hidden_field("id") }}</td>
-		<td>{{ submit_button("Save") }}</td>
-	</tr>
-</table>
-
-</form>

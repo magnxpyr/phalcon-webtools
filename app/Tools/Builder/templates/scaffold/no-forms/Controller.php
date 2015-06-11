@@ -3,23 +3,28 @@ $namespace$
 
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
-use Phalcon\Mvc\Controller;
+use $controllerClass$;
 use $modelClass$;
 
-class $className$Controller extends Controller {
-
+/**
+ * Class $className$Controller
+ * @package $package$
+ */
+class $className$Controller extends $controllerName$
+{
     /**
      * Index action
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->persistent->parameters = null;
     }
 
     /**
      * Searches for $plural$
      */
-    public function searchAction() {
-
+    public function searchAction()
+    {
         $numberPage = 1;
         if ($this->request->isPost()) {
             $query = Criteria::fromInput($this->di, "$className$", $_POST);
@@ -55,7 +60,8 @@ class $className$Controller extends Controller {
     /**
      * Displays the creation form
      */
-    public function newAction() {
+    public function newAction()
+    {
 
     }
 
@@ -64,11 +70,10 @@ class $className$Controller extends Controller {
      *
      * @param string $pkVar$
      */
-    public function editAction($pkVar$) {
-
+    public function editAction($pkVar$)
+    {
         if (!$this->request->isPost()) {
-
-            $singularVar$ = $className$::findFirst($pkVar$);
+            $singularVar$ = $className$::findFirstBy$pkFind$($pkVar$);
             if (!$singularVar$) {
                 $this->flash->error("$singular$ was not found");
 
@@ -76,7 +81,6 @@ class $className$Controller extends Controller {
                     "action" => "index"
                 ));
             }
-
             $this->view->$pk$ = $singularVar$->$pk$;
 
             $assignTagDefaults$
@@ -86,8 +90,8 @@ class $className$Controller extends Controller {
     /**
      * Creates a new $singular$
      */
-    public function createAction() {
-
+    public function createAction()
+    {
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
                 "action" => "index"
@@ -117,10 +121,9 @@ class $className$Controller extends Controller {
 
     /**
      * Saves a $singular$ edited
-     *
      */
-    public function saveAction() {
-
+    public function saveAction()
+    {
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
                 "action" => "index"
@@ -129,7 +132,7 @@ class $className$Controller extends Controller {
 
         $pkVar$ = $this->request->getPost("$pk$");
 
-        $singularVar$ = $className$::findFirst($pkVar$);
+        $singularVar$ = $className$::findFirstBy$pkFind$($pkVar$);
         if (!$singularVar$) {
             $this->flash->error("$singular$ does not exist " . $pkVar$);
 
@@ -163,9 +166,9 @@ class $className$Controller extends Controller {
      *
      * @param string $pkVar$
      */
-    public function deleteAction($pkVar$) {
-
-        $singularVar$ = $className$::findFirst($pkVar$);
+    public function deleteAction($pkVar$)
+    {
+        $singularVar$ = $className$::findFirstBy$pkFind$($pkVar$);
         if (!$singularVar$) {
             $this->flash->error("$singular$ was not found");
 

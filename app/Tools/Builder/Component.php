@@ -30,8 +30,8 @@ namespace Tools\Builder;
  * @copyright   Copyright (c) 2011-2014 Phalcon Team (team@phalconphp.com)
  * @license 	New BSD License
  */
-abstract class Component {
-
+abstract class Component
+{
     /**
      * @var array
      */
@@ -40,7 +40,8 @@ abstract class Component {
     /**
      * @param $options
      */
-    public function __construct($options) {
+    public function __construct($options)
+    {
         $this->_options = $options;
     }
 
@@ -48,10 +49,10 @@ abstract class Component {
      * Check if a path is absolute
      *
      * @param $path
-     *
      * @return bool
      */
-    public function isAbsolutePath($path) {
+    public function isAbsolutePath($path)
+    {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             if (preg_match('/^[A-Z]:\\\\/', $path)) {
                 return true;
@@ -70,7 +71,8 @@ abstract class Component {
      * @param  string $adapter
      * @throws \Exception
      */
-    public function isSupportedAdapter($adapter) {
+    public function isSupportedAdapter($adapter)
+    {
         if (!class_exists('\Phalcon\Db\Adapter\Pdo\\' . $adapter)) {
             throw new \Exception("Adapter $adapter is not supported");
         }

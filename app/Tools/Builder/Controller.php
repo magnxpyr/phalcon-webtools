@@ -10,8 +10,12 @@ namespace Tools\Builder;
 
 use Tools\Helpers\Tools;
 
-class Controller extends Component {
-
+/**
+ * Class Controller
+ * @package Tools\Builder
+ */
+class Controller extends Component
+{
     /**
      * Controller constructor
      *
@@ -49,8 +53,8 @@ class Controller extends Component {
      * @return string
      * @throws \Exception
      */
-    public function build() {
-
+    public function build()
+    {
         if ($this->_options['namespace'] != 'None') {
             $namespace = 'namespace '.$this->_options['namespace'].';'.PHP_EOL.PHP_EOL;
         } else {
@@ -65,8 +69,14 @@ class Controller extends Component {
         $useClass = 'use '.$this->_options['baseClass'].';'.PHP_EOL.PHP_EOL;
 
         $code = "<?php\n".Tools::getCopyright()."\n\n".$namespace.$useClass.
-            "class ".$this->_options['name']." extends $baseClass {
-            \n\tpublic function indexAction() {\n\n\t}\n}";
+            "/**
+ * Class " . $this->_options['name'] . "
+ * @package " . $this->_options['namespace'] . "
+ */
+class ".$this->_options['name']." extends $baseClass
+{
+    public function indexAction()
+    {\n\n\t}\n}";
         $code = str_replace("\t", "    ", $code);
 
         if (!file_exists($controllerPath) || $this->_options['force'] == true) {

@@ -1,25 +1,21 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine $this
+ */
 
-<?php echo $this->tag->form("$plural$/create") ?>
+echo $this->getContent();
+?>
 
-<table width="100%">
-    <tr>
-        <td align="left"><?php echo $this->tag->linkTo(array("$plural$", "Go Back")) ?></td>
-        <td align="right"><?php echo $this->tag->submitButton("Save") ?></td>
-    </tr>
-</table>
+<h1>Create $plural$</h1>
 
-<?php echo $this->getContent(); ?>
-
-<div align="center">
-    <h1>Create $plural$</h1>
+<div class="col-md-6 col-sm-6">
+    <?php echo $this->tag->form(array("$plural$/create", "class" => "form-horizontal")) ?>
+        <?php echo $this->tag->linkTo(array("$plural$", "Back")) ?>
+        <fieldset>
+            $captureFields$
+            <div class="form-group">
+                <?php echo $this->tag->submitButton(array('Save', 'class' => 'btn btn-success col-sm-offset-4')); ?>
+            </div>
+        </fieldset>
+    </form>
 </div>
-
-<table>
-$captureFields$
-    <tr>
-        <td></td>
-        <td><?php echo $this->tag->submitButton("Save") ?></td>
-    </tr>
-</table>
-
-</form>

@@ -28,11 +28,22 @@ namespace Tools\Builder;
 use Phalcon\Text;
 use Tools\Helpers\Tools;
 
-class AllModels extends Component {
-
+/**
+ * Class AllModels
+ * @package Tools\Builder
+ */
+class AllModels extends Component
+{
     public $exist = array();
 
-    public function __construct($options) {
+    /**
+     * AllModels Construct
+     *
+     * @param $options
+     * @throws \Exception
+     */
+    public function __construct($options)
+    {
         if (empty($options['name'])) {
             $options['name'] = Text::camelize($options['tableName']);
         }
@@ -57,8 +68,12 @@ class AllModels extends Component {
         $this->_options = $options;
     }
 
-    public function build() {
-
+    /**
+     * Build Models
+     * @throws \Exception
+     */
+    public function build()
+    {
         if (isset($this->_options['defineRelations'])) {
             $defineRelations = $this->_options['defineRelations'];
         } else {

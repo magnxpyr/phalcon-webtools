@@ -12,9 +12,17 @@ use Tools\Builder\AllModels;
 use Tools\Builder\Model;
 use Tools\Helpers\Tools;
 
-class ModelsController extends ControllerBase {
-
-    public function indexAction() {
+/**
+ * Class ModelsController
+ * @package Tools\Controllers
+ */
+class ModelsController extends ControllerBase
+{
+    /**
+     * @throws \Exception
+     */
+    public function indexAction()
+    {
         $selectedModule = null;
         $params = $this->router->getParams();
         if(!empty($params))
@@ -28,11 +36,11 @@ class ModelsController extends ControllerBase {
     /**
      * Generate models
      */
-    public function createAction() {
-
+    public function createAction()
+    {
         if ($this->request->isPost()) {
 
-            $name =$this->request->getPost('name', 'string');
+            $name = $this->request->getPost('name', 'string');
             $module = $this->request->getPost('module', 'string');
             $force = $this->request->getPost('force', 'int');
             $schema = $this->request->getPost('schema', 'string');

@@ -1,5 +1,4 @@
 <?php
-
 /*
   +------------------------------------------------------------------------+
   | Phalcon Developer Tools                                                |
@@ -32,7 +31,6 @@ namespace Tools\Builder\Version;
  */
 class Item
 {
-
     /**
      * @var string
      */
@@ -121,7 +119,7 @@ class Item
     /**
      * @param $versions Item[]
      *
-     * @return Tools\Builder\Version
+     * @return \Tools\Builder\Version
      */
     public static function maximum($versions)
     {
@@ -204,5 +202,4 @@ class Item
     {
         return $this->_version;
     }
-
 }

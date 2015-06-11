@@ -1,25 +1,14 @@
-
-{{ form("$plural$/create", "method":"post") }}
-
-<table width="100%">
-    <tr>
-        <td align="left">{{ link_to("$plural$", "Go Back") }}</td>
-        <td align="right">{{ submit_button("Save") }}</td>
-    </tr>
-</table>
-
 {{ content() }}
+<h1>Create $plural$</h1>
 
-<div align="center">
-    <h1>Create $plural$</h1>
+<div class="col-md-6 col-sm-6">
+    {{ form("$plural$/create", "method":"post", "class": "form-horizontal") }}
+        {{ link_to("$plural$", "Go Back") }}
+        <fieldset>
+            $captureFields$
+            <div class="form-group">
+                {{ submit_button("Save", "class": "btn btn-success col-sm-offset-4") }}
+            </div>
+        </fieldset>
+    </form>
 </div>
-
-<table>
-$captureFields$
-    <tr>
-        <td></td>
-        <td>{{ submit_button("Save") }}</td>
-    </tr>
-</table>
-
-</form>

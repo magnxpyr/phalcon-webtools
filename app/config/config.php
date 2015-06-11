@@ -5,20 +5,20 @@ return new \Phalcon\Config(array(
         'adapter'     => 'Mysql',
         'host'        => 'localhost',
         'username'    => 'root',
-        'password'    => '',
-        'dbname'      => '',
+        'password'    => 'bingo',
+        'dbname'      => 'cms',
         'charset'     => 'utf8',
     ),
     'application' => array(
         'controllersDir' => __DIR__ . '/../Tools/Controllers/',
         'viewsDir'       => __DIR__ . '/../Tools/Views/',
         'cacheDir'       => __DIR__ . '/../cache/',
-        'baseUri'        => '/', // change according to your base URL
+        'baseUri'        => '/phalcon-webtools/', // change according to your base URL
     ),
     'tools' => array(
         'copyright' => "", // copyright header for generated files; default empty
-        'modulesPath' => __DIR__ . '/../', // path to your modules/app directory
-        'migrationsPath' => __DIR__ . '/../../migrations/', // path to migrations directory
+        'modulesPath' => dirname(__DIR__) . '/', // path to your modules/app directory
+        'migrationsPath' => dirname(dirname(__DIR__)) . '/migrations/', // path to migrations directory
         //  'viewsDir' => '', // default Views
         //  'modulesDir' => '', // default Modules
         //  'controllersDir' => '', // default Controllers
