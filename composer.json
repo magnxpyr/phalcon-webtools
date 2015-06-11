@@ -1,21 +1,36 @@
 {
     "name": "magnxpyr/phalcon-webtools",
+    "version": "0.1.1",
+    "time": "2015-06-11",
     "type": "library",
-    "description": "Web Tools for Phalcon Framework",
+    "title": "Web Tools for Phalcon Framework",
+    "description": "A more flexible alternative to Phalcon Web Tools provided as a stand alone application. Generates Bootstrap 3 pages.",
     "keywords": ["phalcon", "webtools", "tools", "magnxpyr"],
-    "licence": "New BSD Licence",
+    "licence": "BSD-3-Clause",
+    "homepage": "http://www.magnxpyr.com/",
+    "authors": [
+        {
+            "name": "Magnxpyr Network",
+            "url": "http://www.magnxpyr.com",
+        },
+        {
+            "name": "Stefan Chiriac",
+            "url": "http://www.magnxpyr.com",
+            "email": "stefan@magnxpyr.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/magnxpyr/phalcon-webtools/issues"
+    },
+    "repository": {
+        "type": "vcs",
+        "url": "https://github.com/magnxpyr/phalcon-webtools"
+    },
+    "minimum-stability": "dev",
     "require": {
         "ext-phalcon": "~2.0",
         "php": ">=5.4"
     },
-    "license": "New BSD Licence",
-    "authors": [
-        {
-            "name": "Stefan Chiriac",
-            "email": "stefan@magnxpyr.com"
-        }
-    ],
-    "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
             "Tools": "app/Tools/"
