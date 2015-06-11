@@ -5,15 +5,15 @@ return new \Phalcon\Config(array(
         'adapter'     => 'Mysql',
         'host'        => 'localhost',
         'username'    => 'root',
-        'password'    => 'bingo',
-        'dbname'      => 'cms',
+        'password'    => '',
+        'dbname'      => '',
         'charset'     => 'utf8',
     ),
     'application' => array(
         'controllersDir' => __DIR__ . '/../Tools/Controllers/',
         'viewsDir'       => __DIR__ . '/../Tools/Views/',
         'cacheDir'       => __DIR__ . '/../cache/',
-        'baseUri'        => '/phalcon-webtools/', // change according to your base URL
+        'baseUri'        => '/', // change according to your base URL
     ),
     'tools' => array(
         'copyright' => "", // copyright header for generated files; default empty
