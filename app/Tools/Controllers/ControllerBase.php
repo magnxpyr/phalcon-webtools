@@ -32,7 +32,7 @@ class ControllerBase extends Controller
      * Initialize controller
      * @throws \Exception
      */
-    protected function initialize()
+    public function initialize()
     {
         $this->_checkAccess();
     }

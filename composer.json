@@ -1,6 +1,6 @@
 {
     "name": "magnxpyr/phalcon-webtools",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "time": "2015-06-11",
     "type": "library",
     "title": "Web Tools for Phalcon Framework",
@@ -24,7 +24,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "ext-phalcon": "~2.0",
+        "ext-phalcon": ">=2.0",
         "php": ">=5.4"
     },
     "autoload": {
